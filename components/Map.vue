@@ -5,10 +5,12 @@
 <script setup lang='ts'>
 import { PropType } from 'vue';
 import { Children, Diseaseh5Shelf } from '~~/types';
+import chinaMap from "../assets/china.json"
 import { geoCoordMap } from '../assets/geoMap'
 
 const { appContext } = getCurrentInstance()
 const echarts = appContext.config.globalProperties.$echarts
+echarts.registerMap("china", chinaMap)
 
 const props = defineProps({
   chinaDetail: {
@@ -25,7 +27,7 @@ onMounted(() => {
 
 const initCharts = () => {
   const city = props.chinaDetail.areaTree[0].children;
-  let FirstCityChildren = city[1].children
+  let FirstCityArea = city[1].children
   const data = city.map(v => {
     return {
       name: v.name,
@@ -138,11 +140,15 @@ const initCharts = () => {
     ],
   })
   charts.on('click', (e: any) => {
-    FirstCityChildren = e.data.children
+    FirstCityArea = e.data.children
   })
 }
 
 </script>
   
-<style>
+<style scoped>
+.box-center {
+  flex: 1;
+  height: 100%;
+}
 </style>
