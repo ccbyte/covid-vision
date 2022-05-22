@@ -67,7 +67,7 @@ footer {
   aside,
   article {
     flex: 1 0 100%;
-    /* height: 800px; */
+    min-height: 400px;
   }
 }
 
