@@ -116,12 +116,12 @@ export interface AreaTree {
 }
 
 export interface Diseaseh5Shelf {
-	lastUpdateTime: string;
+	lastUpdateTime?: string;
 	chinaTotal: ChinaTotal;
 	chinaAdd: ChinaAdd;
-	isShowAdd: boolean;
-	showAddSwitch: ShowAddSwitch;
-	areaTree: AreaTree[];
+	isShowAdd?: boolean;
+	showAddSwitch?: ShowAddSwitch;
+	areaTree?: AreaTree[];
 }
 
 export interface StatisGradeCityDetail {

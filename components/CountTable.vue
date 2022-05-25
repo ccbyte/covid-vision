@@ -1,6 +1,6 @@
 <template>
   <div style="color:white" class="box-right">
-    <table class="table" cellspacing="0" border="1">
+    <table class="table" cellspacing="0" border="1" v-if="area">
       <thead>
         <tr>
           <th>地区</th>
@@ -10,26 +10,26 @@
           <th>死亡</th>
         </tr>
       </thead>
-      <transition-group enter-active-class="animate__animated animate__flipInY" tag="tbody">
-        <tr :key="tableDetail.name" v-for="(item, index) in tableDetail">
-          <td align="center">{{ item.name }}</td>
-          <td align="center">{{ item.today.confirm }}</td>
-          <td align="center">{{ item.total.confirm }}</td>
-          <td align="center">{{ item.total.heal }}</td>
-          <td align="center">{{ item.total.dead }}</td>
-        </tr>
-      </transition-group>
+      <tr :key="area.name+index" v-for="(item, index) in area.children">
+        <td align="center">{{ item.name }}</td>
+        <td align="center">{{ item.today.confirm }}</td>
+        <td align="center">{{ item.total.confirm }}</td>
+        <td align="center">{{ item.total.heal }}</td>
+        <td align="center">{{ item.total.dead }}</td>
+      </tr>
     </table>
   </div>
 </template>
   
 <script setup lang='ts'>
-import { PropType } from 'vue';
-import type { Children } from '../types'
-const props = defineProps({
-  tableDetail: {
-    type: [Object] as PropType<Children>,
-  }
+import type { AreaTree } from '../types'
+
+const props = defineProps<{
+  areaDetail: AreaTree
+}>()
+let area = computed(() => {
+  console.log(props.areaDetail)
+  return props.areaDetail
 })
 
 </script>

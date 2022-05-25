@@ -3,8 +3,7 @@
 </template>
   
 <script setup lang='ts'>
-import { PropType } from 'vue';
-import { Children, Diseaseh5Shelf } from '~~/types';
+import { AreaTree, Children, Diseaseh5Shelf } from '~~/types'
 import chinaMap from "../assets/china.json"
 import { geoCoordMap } from '../assets/geoMap'
 
@@ -12,22 +11,22 @@ const { appContext } = getCurrentInstance()
 const echarts = appContext.config.globalProperties.$echarts
 echarts.registerMap("china", chinaMap)
 
-const props = defineProps({
-  chinaDetail: {
-    type: [Object] as PropType<Diseaseh5Shelf>,
-  },
-  item: {
-    type: [Object] as PropType<Children>,
-  }
-})
+const props = defineProps<{
+  chinaDetail: Diseaseh5Shelf
+}>()
+
+const emit = defineEmits<{
+  (e: 'change', id: Children): void
+}>()
 
 onMounted(() => {
   initCharts()
 })
 
 const initCharts = () => {
-  const city = props.chinaDetail.areaTree[0].children;
-  let FirstCityArea = city[1].children
+  const city = props.chinaDetail?.areaTree[0].children
+  let FirstCityArea = city[1]
+  emit("change", FirstCityArea)
   const data = city.map(v => {
     return {
       name: v.name,
@@ -140,7 +139,8 @@ const initCharts = () => {
     ],
   })
   charts.on('click', (e: any) => {
-    FirstCityArea = e.data.children
+    FirstCityArea = e.data
+    emit("change", FirstCityArea)
   })
 }
 

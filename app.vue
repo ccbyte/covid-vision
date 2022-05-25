@@ -7,17 +7,16 @@
       <CountBoard :chinaDetail="chinaDetail" :cityDetail="cityDetail"></CountBoard>
     </template>
     <template #content>
-      <Map :chinaDetail="chinaDetail"></Map>
+      <Map :chinaDetail="chinaDetail" @change="handleAreaChange"></Map>
     </template>
     <template #right-side>
-      <!-- <CountBoard :chinaDetail="chinaDetail"></CountBoard> -->
+      <CountTable :areaDetail="areaDetails"></CountTable>
     </template>
   </NuxtLayout>
 </template>
 
 <script setup lang="ts">
-import { RootObject } from '~~/types';
-
+import { AreaTree, Children, RootObject } from '~~/types';
 useHead({
   title: 'CovidVision',
   description: 'covid-19 vision',
@@ -25,11 +24,17 @@ useHead({
   viewport: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'
 })
 
-let { chinaDetail, cityDetail } = useCovData()
+let { diseaseh5Shelf: chinaDetail, statisGradeCityDetail: cityDetail } = useCovData()
 const res: RootObject = await $fetch("http://localhost:3333/api/list")
 
 chinaDetail = res.diseaseh5Shelf
 cityDetail = res.statisGradeCityDetail
+
+let areaDetails = ref<AreaTree>()
+const handleAreaChange = (e: AreaTree) => {
+  areaDetails.value = e
+  console.log(e, areaDetails.value)
+}
 
 </script>
 
@@ -38,6 +43,7 @@ body {
   margin: 0;
   padding: 0;
 }
+
 .title {
   color: white;
   width: 100%;
