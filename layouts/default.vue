@@ -69,6 +69,9 @@ footer {
     flex: 1 0 100%;
     min-height: 400px;
   }
+  .table {
+    width: 100%;
+  }
 }
 
 </style>

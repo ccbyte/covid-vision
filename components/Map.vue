@@ -25,7 +25,7 @@ onMounted(() => {
 
 const initCharts = () => {
   const city = props.chinaDetail?.areaTree[0].children
-  let FirstCityArea = city[1]
+  let FirstCityArea = city[9]
   emit("change", FirstCityArea)
   const data = city.map(v => {
     return {
@@ -34,6 +34,7 @@ const initCharts = () => {
       children: v.children
     }
   })
+  data[9]['selected'] = true
   const charts = echarts.init(document.querySelector('#china') as HTMLElement)
   charts.setOption({
     geo: {

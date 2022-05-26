@@ -10,18 +10,23 @@
           <th>死亡</th>
         </tr>
       </thead>
-      <tr :key="area.name+index" v-for="(item, index) in area.children">
-        <td align="center">{{ item.name }}</td>
-        <td align="center">{{ item.today.confirm }}</td>
-        <td align="center">{{ item.total.confirm }}</td>
-        <td align="center">{{ item.total.heal }}</td>
-        <td align="center">{{ item.total.dead }}</td>
-      </tr>
+      <transition enter-active-class="animate__animated animate__flipInY">
+        <tbody :key="area.name">
+          <tr :key="item.name" v-for="(item, index) in area.children">
+            <td align="center">{{ item.name }}</td>
+            <td align="center">{{ item.today.confirm }}</td>
+            <td align="center">{{ item.total.confirm }}</td>
+            <td align="center">{{ item.total.heal }}</td>
+            <td align="center">{{ item.total.dead }}</td>
+          </tr>
+        </tbody>
+      </transition>
     </table>
   </div>
 </template>
   
 <script setup lang='ts'>
+import 'animate.css'
 import type { AreaTree } from '../types'
 
 const props = defineProps<{
