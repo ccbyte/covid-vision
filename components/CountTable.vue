@@ -33,7 +33,6 @@ const props = defineProps<{
   areaDetail: AreaTree
 }>()
 let area = computed(() => {
-  console.log(props.areaDetail)
   return props.areaDetail
 })
 
